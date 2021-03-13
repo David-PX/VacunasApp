@@ -12,18 +12,30 @@ namespace VacunasApp.Models
     {
         public Vacunas()
         {
-            Persona = new HashSet<Personas>();
+            Personas = new HashSet<Personas>();
         }
 
         [Key]
-        public int vacuna_id {get; set;}
+        public int id {get; set;}
         public string nombre {get; set;}
         public string marca {get; set;}
         public long cantidad {get; set;}
         public bool disponibilidad {get; set;}
 
+        public int? primeradosis_id { get; set; }
+
+        [ForeignKey(nameof(primeradosis_id))]
+        [InverseProperty("Vacunas")]
+        public virtual PrimeraDosis PrimeraDosis {get; set;}
+
+        public int? segundadosis_id { get; set; }
+        
+        [ForeignKey(nameof(segundadosis_id))]
+        [InverseProperty("Vacunas")]
+        public virtual SegundaDosis SegundaDosis {get; set;}
+
         [InverseProperty("Vacunas")]
         [JsonIgnore]
-        public virtual ICollection<Personas> Persona {get; set;}
+        public virtual ICollection<Personas> Personas {get; set;}
     }
 }

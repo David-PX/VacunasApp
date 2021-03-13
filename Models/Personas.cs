@@ -17,17 +17,11 @@ namespace VacunasApp.Models
         public string telefono { get; set; }
         public DateTime fechaNacimiento { get; set; }
 
-        public int? primeradosis_id { get; set; }
+        public int? vacuna_id { get; set; }
 
-        [ForeignKey(nameof(primeradosis_id))]
+        [ForeignKey(nameof(vacuna_id))]
         [InverseProperty("Personas")]
-        public virtual Vacunas PrimeraDosis {get; set;}
-
-        public int? segundadosis_id { get; set; }
-        
-        [ForeignKey(nameof(segundadosis_id))]
-        [InverseProperty("Personas")]
-        public virtual Vacunas SegundaDosis {get; set;}
+        public virtual Vacunas Vacunas {get; set;}
 
         public int? provincia_id { get; set; }
 
@@ -40,13 +34,5 @@ namespace VacunasApp.Models
         [ForeignKey(nameof(signosodiacal_id))]
         [InverseProperty("Personas")]
         public virtual SignosSodiacales SignosSodiacales {get; set;} 
-
-        public bool? primera_dosis {get; set;}
-
-        public bool? segunda_dosis {get; set;}
-
-        public DateTime? fechaPrimeraDosis {get; set;}
-
-        public DateTime? fechaSegundaDosis {get; set;}
     }
 }

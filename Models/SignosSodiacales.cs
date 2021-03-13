@@ -12,17 +12,17 @@ namespace VacunasApp.Models
     {
         public SignosSodiacales()
         {
-            SignoSodiacal = new HashSet<SignosSodiacales>();
+            Personas = new HashSet<Personas>();
         }
 
         [Key]
-        public int signosodiacal_id {get; set;}
+        public int id {get; set;}
         public string nombre {get; set;}
         public DateTime fechaInicio {get; set;}
         public DateTime fechaFinal {get; set;}
 
         [InverseProperty("SignosSodiacales")]
         [JsonIgnore]
-        public virtual ICollection<SignosSodiacales> SignoSodiacal {get; set;}
+        public virtual ICollection<Personas> Personas {get; set;}
     }
 }
