@@ -28,8 +28,9 @@ namespace VacunasApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VacunasApp.Context;
 
@@ -15,47 +14,256 @@ namespace VacunasApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "3.1.13");
 
-            modelBuilder.Entity("VacunasApp.Models.Personas", b =>
+            modelBuilder.Entity("VacunasApp.Models.Pais", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("apellido")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cedula")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("fechaNacimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("provincia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("signoZodiacal")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("vacuna1")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("vacuna2")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("id");
 
+                    b.ToTable("pais");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Personas", b =>
+                {
+                    b.Property<string>("cedula")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Provinciasid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("SignosSodiacalesid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Vacunasid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("apellido")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("fechaNacimiento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("provincia_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("signosodiacal_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("vacuna_id")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("cedula");
+
+                    b.HasIndex("Provinciasid");
+
+                    b.HasIndex("SignosSodiacalesid");
+
+                    b.HasIndex("Vacunasid");
+
+                    b.HasIndex("provincia_id");
+
+                    b.HasIndex("signosodiacal_id");
+
+                    b.HasIndex("vacuna_id");
+
                     b.ToTable("personas");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.PrimeraDosis", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("fechaRecibida")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("recibida")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
+
+                    b.ToTable("PrimeraDosis");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Provincias", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Paisid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("pais_id")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Paisid");
+
+                    b.HasIndex("pais_id");
+
+                    b.ToTable("provincias");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.SegundaDosis", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("fechaRecibida")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("recibida")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
+
+                    b.ToTable("SegundaDosis");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.SignosSodiacales", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("fechaFinal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("fechaInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("signossodiacales");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Vacunas", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PrimeraDosisid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("SegundaDosisid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("disponibilidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("marca")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("primeradosis_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("segundadosis_id")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("PrimeraDosisid");
+
+                    b.HasIndex("SegundaDosisid");
+
+                    b.HasIndex("primeradosis_id");
+
+                    b.HasIndex("segundadosis_id");
+
+                    b.ToTable("vacunas");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Personas", b =>
+                {
+                    b.HasOne("VacunasApp.Models.Provincias", null)
+                        .WithMany("Personas")
+                        .HasForeignKey("Provinciasid");
+
+                    b.HasOne("VacunasApp.Models.SignosSodiacales", null)
+                        .WithMany("Personas")
+                        .HasForeignKey("SignosSodiacalesid");
+
+                    b.HasOne("VacunasApp.Models.Vacunas", null)
+                        .WithMany("Personas")
+                        .HasForeignKey("Vacunasid");
+
+                    b.HasOne("VacunasApp.Models.Provincias", "Provincias")
+                        .WithMany()
+                        .HasForeignKey("provincia_id")
+                        .HasConstraintName("persona_provincia_id_fkey");
+
+                    b.HasOne("VacunasApp.Models.SignosSodiacales", "SignosSodiacales")
+                        .WithMany()
+                        .HasForeignKey("signosodiacal_id")
+                        .HasConstraintName("persona_signosodiacal_id_id_fkey");
+
+                    b.HasOne("VacunasApp.Models.Vacunas", "Vacunas")
+                        .WithMany()
+                        .HasForeignKey("vacuna_id")
+                        .HasConstraintName("persona_vacuna_id_fkey");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Provincias", b =>
+                {
+                    b.HasOne("VacunasApp.Models.Pais", null)
+                        .WithMany("Provincias")
+                        .HasForeignKey("Paisid");
+
+                    b.HasOne("VacunasApp.Models.Pais", "Pais")
+                        .WithMany()
+                        .HasForeignKey("pais_id")
+                        .HasConstraintName("provincias_pais_id_fkey");
+                });
+
+            modelBuilder.Entity("VacunasApp.Models.Vacunas", b =>
+                {
+                    b.HasOne("VacunasApp.Models.PrimeraDosis", null)
+                        .WithMany("Vacunas")
+                        .HasForeignKey("PrimeraDosisid");
+
+                    b.HasOne("VacunasApp.Models.SegundaDosis", null)
+                        .WithMany("Vacunas")
+                        .HasForeignKey("SegundaDosisid");
+
+                    b.HasOne("VacunasApp.Models.PrimeraDosis", "PrimeraDosis")
+                        .WithMany()
+                        .HasForeignKey("primeradosis_id")
+                        .HasConstraintName("vacuna_primeradosis_id_fkey");
+
+                    b.HasOne("VacunasApp.Models.SegundaDosis", "SegundaDosis")
+                        .WithMany()
+                        .HasForeignKey("segundadosis_id")
+                        .HasConstraintName("vacuna_segundadosis_id_fkey");
                 });
 #pragma warning restore 612, 618
         }

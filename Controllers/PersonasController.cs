@@ -29,23 +29,43 @@ namespace VacunasApp.Controllers
         }
 
         // GET api/<PersonasController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{nombre}/{apellido?}")]
+        public async Task<ActionResult<Personas>> Get(string nombre, string apellido)
         {
-            return "value";
+            if(nombre != null && apellido == null)
+            {
+                return _dbContext.personas.FirstOrDefault(x => x.nombre == nombre);
+            }
+            else if(apellido != null && nombre == null)
+            {
+                return  _dbContext.personas.FirstOrDefault(x => x.apellido == apellido);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            
         }
 
         // POST api/<PersonasController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Personas>> Post([FromBody] Personas personas)
         {
+            await _dbContext.AddAsync(personas);
+            await _dbContext.SaveChangesAsync();
+            return Ok(personas);
+
+
+
         }
 
         // PUT api/<PersonasController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{cedula}")]
+        //public void Put(string cedula, [FromBody] Personas persona)
+        //{
+        //   if(id != persona.cedula)
+        //}
 
         // DELETE api/<PersonasController>/5
         [HttpDelete("{id}")]
