@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Context"
+    "\\Controllers"
   ],
-  "SelectedNode": "\\Context\\ApplicationDbContext.cs",
+  "SelectedNode": "\\Controllers",
   "PreviewInSolutionExplorer": false
 }
