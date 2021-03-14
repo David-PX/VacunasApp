@@ -16,6 +16,8 @@ namespace VacunasApp.Context
         public DbSet<Provincias> provincias { get; set; }
         public DbSet<Pais> pais { get; set; }
         public DbSet<SignosSodiacales> signossodiacales { get; set; }
+        public DbSet<PrimeraDosis> primeradosis { get; set; }
+        public DbSet<SegundaDosis> segundadosis { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite("Data Source=mydatabase.db");
